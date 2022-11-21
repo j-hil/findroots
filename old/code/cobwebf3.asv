@@ -1,0 +1,23 @@
+clf
+a = linspace(-4.5,-0.5,1000);
+
+hold on
+
+title(' ''Cobweb Diagram'' ')
+xlabel('x')
+ylabel('y')
+grid on
+
+h = plot(a, F(a) , a ,a);
+
+
+set(h(1),'LineStyle', '-', 'color', 'k')
+set(h(2),'LineStyle', '--', 'color', 'k')
+
+legend(h,' y = f(x)',' y = x')
+
+
+
+ 
+ ax = gca;
+ ax.XAxisLocation = 'bottom';
