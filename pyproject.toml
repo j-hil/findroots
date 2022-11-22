@@ -33,7 +33,7 @@ dev = [
     "mypy>=0.971, <1",
     # autoformatting
     "pre-commit>=2.20.0, <3",
-    "black>=22.8.0, <23",
+    "black>=22.10.0, <23",
     "isort>=5.10.1, <6",
     "autoflake>=1.7.7, <2",
     "pydocstringformatter>=0.7.2, <1",
@@ -49,7 +49,7 @@ dev = [
 ]
 
 [project.urls]
-Homepage = ""  # TODO
+Homepage = "https://github.com/j-hil/findroots"
 
 
 [tool.hatch.build]
@@ -59,13 +59,15 @@ include = ["*.py", "py.typed"]
 packages = ["src/root-finding"]
 
 [tool.mypy]
+show_error_codes = true
+
 warn_redundant_casts = true
 warn_unused_configs = true
-warn_return_any = true
 warn_unused_ignores = true
 
-show_error_codes = true
+warn_return_any = true
 strict = true
+plugins = ["numpy.typing.mypy_plugin"]
 
 
 [tool.pylint.basic]
