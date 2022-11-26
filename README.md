@@ -16,3 +16,11 @@ Unknown
 Good way to practice using python to manipulate and present numerical data. Plus I just missed doing maths.
 
 Original project material (including MATLAB code) can be found in [old](old/)
+
+## Rough
+
+New things this project has allowed me to experiment with:
+* numpy and matplotlib usage
+* numerical methods (obvs)
+* notebooks
+* using mypy with stubs

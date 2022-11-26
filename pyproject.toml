@@ -19,10 +19,11 @@ classifiers = [
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
 ]
-requires-python = ">=3.10"
+requires-python = "~=3.10"
 dependencies = [
     "numpy>=1.23.5, <2",
     "matplotlib>=3.6.2, <4",
+    "latexify_py>=0.2.0, <1",
 ]
 
 [project.optional-dependencies]
@@ -57,7 +58,7 @@ Homepage = "https://github.com/j-hil/findroots"
 include = ["*.py", "py.typed"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/root-finding"]
+packages = ["src/findroots"]
 
 [tool.mypy]
 show_error_codes = true
@@ -69,6 +70,12 @@ warn_unused_ignores = true
 warn_return_any = true
 strict = true
 plugins = ["numpy.typing.mypy_plugin"]
+
+[[tool.mypy.overrides]]
+module = [
+    'matplotlib.*',
+]
+ignore_missing_imports = true
 
 
 [tool.pylint.basic]
@@ -115,7 +122,7 @@ ignore = [
 
 [tool.coverage.run]
 branch = true
-source = ["./src/root-finding"]
+source = ["./src/findroots"]
 
 [tool.coverage.report]
 exclude_lines = [
