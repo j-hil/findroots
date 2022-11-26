@@ -20,7 +20,8 @@ Original project material (including MATLAB code) can be found in [old](old/)
 ## Rough
 
 New things this project has allowed me to experiment with:
-* numpy and matplotlib usage
+* numpy usage - including typing.
+* matplotlib usage
 * numerical methods (obvs)
 * notebooks
 * using mypy with stubs

@@ -30,7 +30,7 @@ def plot(_f: Signature, /, *, on: tuple[Num, Num], step: Num) -> Figure:
     return fig
 
 
-def _main():
+def _main() -> None:
     # test plot
     from findroots.functions import func1
 

@@ -61,15 +61,17 @@ include = ["*.py", "py.typed"]
 packages = ["src/findroots"]
 
 [tool.mypy]
-show_error_codes = true
-
-warn_redundant_casts = true
-warn_unused_configs = true
-warn_unused_ignores = true
-
+# meaningful changes to mypy's behavoir
 warn_return_any = true
 strict = true
 plugins = ["numpy.typing.mypy_plugin"]
+mypy_path = "$MYPY_CONFIG_FILE_DIR/stubs"
+
+# conviniences
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
+show_error_codes = true
 
 [[tool.mypy.overrides]]
 module = [

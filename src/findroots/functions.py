@@ -37,7 +37,7 @@ def func2(x: Numerical) -> Numerical:
 
 
 def _main() -> None:
-    # TODO: get this working!
+    # script to test the typing is working as expected
 
     # type hinter should hate this (and will warn if ignore is unnecessary)
     func1("")  # type: ignore
