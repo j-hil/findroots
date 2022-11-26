@@ -2,12 +2,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.figure import Figure
 
-from findroots.types import Num, Signature, Vec
+from findroots.types import Signature, Vec
 
 
-def plot(_f: Signature, /, *, on: tuple[Num, Num], step: Num) -> Figure:
+def plot(_f: Signature, /, *, on: tuple[float, float], step: float) -> Figure:
 
-    xmin, xmax = sorted(on)  # TODO: pylance hates this
+    xmin, xmax = sorted(on)
     xvals: Vec = np.arange(xmin, xmax, step)
     yvals = _f(xvals)
     ymin, ymax = yvals.min(), yvals.max()
