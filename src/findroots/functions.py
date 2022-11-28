@@ -1,38 +1,42 @@
-from typing import overload
+from typing import Callable
 
 import latexify
 import numpy as np
 
-from findroots.types import Num, Numerical, Vec
+from findroots.types import Vec, VecLike
 
 
-@overload
-def func1(x: Num) -> Num:
-    ...
+class MathFunc:
+    """A simple math function."""
+
+    def __init__(self, _f: Callable[[Vec], Vec]) -> None:
+        self._f = _f
+        self._latex = str(latexify.expression(self._f))
+
+    def __call__(self, x: VecLike) -> Vec:
+        return self._f(np.array(x))
+
+    def __str__(self) -> str:
+        return self._latex
 
 
-@overload
+def math_func(_f: Callable[[Vec], Vec], /) -> MathFunc:
+    """Expand typing and str of a math function.
+
+    For simple mathematic functions this will expand the typing inputs from just `Vec`
+    `VecLike` and replace the typical `str` with a latex representation of the function.
+    """
+    # implemented in `MathFunc`
+    return MathFunc(_f)
+
+
+@math_func
 def func1(x: Vec) -> Vec:
-    ...
-
-
-@latexify.expression
-def func1(x: Numerical) -> Numerical:
     return 2 * x - 3 * np.sin(x) + 5
 
 
-@overload
-def func2(x: Num) -> Num:
-    ...
-
-
-@overload
+@math_func
 def func2(x: Vec) -> Vec:
-    ...
-
-
-@latexify.expression
-def func2(x: Numerical) -> Numerical:
     return x**3 - 8.5 * x**2 + 20 * x - 8
 
 

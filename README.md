@@ -25,3 +25,8 @@ New things this project has allowed me to experiment with:
 * numerical methods (obvs)
 * notebooks
 * using mypy with stubs
+
+Differencies between this and orginal project
+* nb designed to be readible on it's own (without referencing the questions/other books)
+* functions generalised and now compatible with np, vectorized inputs etc
+* functions of better quality to be more robust - properly packaged, typed, tested and documented

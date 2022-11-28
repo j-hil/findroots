@@ -61,22 +61,33 @@ include = ["*.py", "py.typed"]
 packages = ["src/findroots"]
 
 [tool.mypy]
-# meaningful changes to mypy's behavoir
-warn_return_any = true
-strict = true
+# each strictness flag. explicitly listed so they can be individually toggled.
+# it seems very complex to get mypy --strict working with numpy, so we take a
+# approach with the typing to be generous (not strict) whenever issues araise.
+disallow_any_generics = true
+disallow_subclassing_any = true
+disallow_untyped_defs = true
+disallow_untyped_calls = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+# warn_return_any = true
+warn_unused_configs = true
+no_implicit_reexport = true
+strict_equality = true
+strict_concatenate = true
+
+# other meaningful changes
 plugins = ["numpy.typing.mypy_plugin"]
 mypy_path = "$MYPY_CONFIG_FILE_DIR/stubs"
 
 # conviniences
-warn_redundant_casts = true
-warn_unused_configs = true
-warn_unused_ignores = true
 show_error_codes = true
 
 [[tool.mypy.overrides]]
-module = [
-    'matplotlib.*',
-]
+module = "matplotlib.*"
 ignore_missing_imports = true
 
 
