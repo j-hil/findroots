@@ -120,6 +120,9 @@ disable = [
 output-format = "colorized"
 
 
+[tool.pydocstringformatter]
+write = true
+
 [tool.isort]
 profile = "black"
 

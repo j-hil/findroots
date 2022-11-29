@@ -3,40 +3,42 @@ from typing import Callable
 import latexify
 import numpy as np
 
-from findroots.types import Vec, VecLike
+from findroots.types import FloatArray, FloatArrayLike
 
 
 class MathFunc:
     """A simple math function."""
 
-    def __init__(self, _f: Callable[[Vec], Vec]) -> None:
+    def __init__(self, _f: Callable[[FloatArray], FloatArrayLike]) -> None:
         self._f = _f
         self._latex = str(latexify.expression(self._f))
 
-    def __call__(self, x: VecLike) -> Vec:
-        return self._f(np.array(x))
+    def __call__(self, x: FloatArrayLike) -> FloatArray:
+        return np.array(self._f(np.array(x, dtype=float)), dtype=float)
 
     def __str__(self) -> str:
         return self._latex
 
 
-def math_func(_f: Callable[[Vec], Vec], /) -> MathFunc:
-    """Expand typing and str of a math function.
+def math_func(_f: Callable[[FloatArray], FloatArrayLike], /) -> MathFunc:
+    """Decorate a math function to expand typing add latex str.
 
-    For simple mathematic functions this will expand the typing inputs from just `Vec`
-    `VecLike` and replace the typical `str` with a latex representation of the function.
+    For simple math functions this will expand input types and narrow output types.
+    Specifically
+        `(FloatVec) -> FloatVecLike` becomes `(FloatVecLike) -> FloatVec`.
+    Additionally the `__str__` will now return a latex representation of the function.
     """
     # implemented in `MathFunc`
     return MathFunc(_f)
 
 
 @math_func
-def func1(x: Vec) -> Vec:
+def func1(x: FloatArray) -> FloatArrayLike:
     return 2 * x - 3 * np.sin(x) + 5
 
 
 @math_func
-def func2(x: Vec) -> Vec:
+def func2(x: FloatArray) -> FloatArrayLike:
     return x**3 - 8.5 * x**2 + 20 * x - 8
 
 

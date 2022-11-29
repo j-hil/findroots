@@ -3,14 +3,14 @@ import numpy as np
 from matplotlib.figure import Figure
 
 from findroots.functions import MathFunc, func1
-from findroots.types import Vec
+from findroots.types import FloatArray
 
 
 def plot(_f: MathFunc, /, *, on: tuple[float, float], step: float) -> Figure:
     plt.rcParams.update({"text.usetex": True})
 
     xmin, xmax = sorted(on)
-    xvals: Vec = np.arange(xmin, xmax, step)
+    xvals: FloatArray = np.arange(xmin, xmax, step)
     yvals = _f(xvals)
     ymin, ymax = yvals.min(), yvals.max()
 
