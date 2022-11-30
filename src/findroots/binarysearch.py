@@ -42,29 +42,21 @@ def findroot(
     while True:
 
         # get info from arrays
-        tol_not_met = b - a > tol
-        continue_lower = tol_not_met & (f_a * f_x < 0)
-        continue_upper = tol_not_met & (f_x * f_b < 0)
+        continue_iteration = (b - a > tol) & (f_x != 0) & root_exists
+        continue_lower = continue_iteration & (f_a * f_x < 0)
+        continue_upper = continue_iteration & (f_x * f_b < 0)
 
         # replace upper/lower bounds as appropriate
         b = np.where(continue_lower, x, b)
         a = np.where(continue_upper, x, a)
-        # TODO: handle == case
 
         # increment iteration count & exit if done
-        n_iters += np.where(tol_not_met & root_exists, 1, 0)
-        if not np.any(tol_not_met * root_exists):
+        n_iters += np.where(continue_iteration, 1, 0)
+        if not np.any(continue_iteration):
             break
 
         # perform next step
         x = (a + b) / 2
         f_a, f_x, f_b = _f((a, x, b))
 
-        if any(n_iters > 1000):
-            pass
-
     return x, n_iters
-
-
-# TODO: investigate
-# roots, _ = findroot(func2, on=((0,1), (3, 5)), tol=5e-10)
