@@ -18,10 +18,11 @@ def test_vectorization() -> None:
         -2.88323617,
         -2.88323858,
         -2.88323535,
+        np.nan,
     )
-    expected_n_iters = (22, 22, 21, 22, 20, 21, 21, 22, 21, 21)
+    expected_n_iters = (23, 23, 22, 23, 21, 22, 22, 23, 22, 22, -1)  # TODO: add 1
 
-    # `func1` has simple root on (-4, 1) which intersects with each of these intervals
+    # `func1` has simple root on (-4, 1) which intersects with some of these intervals
     intervals = (
         (1.1209, -12.3633),
         (-11.0574, 3.4692),
@@ -33,6 +34,7 @@ def test_vectorization() -> None:
         (6.1949, -6.1923),
         (-1.2946, -8.5238),
         (2.0253, -7.8981),
+        (5, 6),
     )
     tolerance = 5e-6
     root_estimates, n_iters = findroot(func1, on=intervals, tol=tolerance)
@@ -41,13 +43,15 @@ def test_vectorization() -> None:
     assert_equal(n_iters, expected_n_iters)
 
 
-def test_distinct_roots() -> None:
+def test_exact_root() -> None:
     # `func2` has a simple root at 0.5 and a double root at 4.
-    # expect only the former to be found
+    # expect only the former to be found.
+    # For former root is exactly halfway in the interval so expect 1 iteration
     tolerance = 1e-5
-    roots, _ = findroot(func2, on=((0, 1), (3, 5)), tol=tolerance)
+    roots, n_iters = findroot(func2, on=((0, 1), (3, 5)), tol=tolerance)
 
     assert_allclose(roots, (0.5, np.nan), atol=tolerance)
+    assert_equal(n_iters, [1, -1])
 
 
 def test_no_roots() -> None:

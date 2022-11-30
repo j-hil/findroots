@@ -37,7 +37,7 @@ def findroot(
     root_exists = f_a * f_b < 0
     x = np.where(root_exists, (a + b) / 2, np.nan)
     f_x = _f(x)
-    n_iters = np.where(root_exists, 0, -1)
+    n_iters = np.where(root_exists, 1, -1)
 
     while True:
 
@@ -56,7 +56,7 @@ def findroot(
             break
 
         # perform next step
-        x = (a + b) / 2
+        x = np.where(root_exists, (a + b) / 2, np.nan)
         f_a, f_x, f_b = _f((a, x, b))
 
     return x, n_iters
